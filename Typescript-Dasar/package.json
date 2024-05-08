@@ -11,7 +11,7 @@
       "^.+\\.[t|j]sx?$": "babel-jest"
     }
   },
-  "author": "",
+  "author": "Kevin Rubama P",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
