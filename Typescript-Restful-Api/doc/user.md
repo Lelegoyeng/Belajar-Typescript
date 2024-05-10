@@ -9,7 +9,8 @@ Request Body :
 ```json
 {
   "username": "kevin",
-  "password": "rahasia"
+  "password": "rahasia",
+  "name": "kevin lelegoyeng"
 }
 ```
 
