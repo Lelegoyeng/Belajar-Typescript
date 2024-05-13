@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { UserRequest } from "../type/user-request";
 import {
   CreateContactRequest,
+  SearchContactRequest,
   UpdateContactRequest,
 } from "../model/contact-model";
 import { ContactService } from "../service/contact-service";
@@ -42,6 +43,36 @@ export class ContactController {
       res.status(200).json({
         data: response,
       });
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  static async remove(req: UserRequest, res: Response, next: NextFunction) {
+    try {
+      const contactId = Number(req.params.contactId);
+      const response = await ContactService.remove(req.user!, contactId);
+      logger.debug("Response : " + JSON.stringify(response));
+      res.status(200).json({
+        data: "OK",
+      });
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  static async search(req: UserRequest, res: Response, next: NextFunction) {
+    try {
+      const request: SearchContactRequest = {
+        name: req.query.name as string,
+        email: req.query.email as string,
+        phone: req.query.phone as string,
+        page: req.query.page ? Number(req.query.page) : 1,
+        size: req.query.size ? Number(req.query.size) : 10,
+      };
+      const response = await ContactService.search(req.user!, request);
+      logger.debug("Response : " + JSON.stringify(response));
+      res.status(200).json(response);
     } catch (e) {
       next(e);
     }
